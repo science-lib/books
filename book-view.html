@@ -138,11 +138,10 @@
       <div>Loading book...</div>
     </div>
     <iframe
-      src="{{BOOK_URL}}"
       class="book-iframe"
       id="bookFrame"
       allow="fullscreen; autoplay; clipboard-write"
-      onload="document.getElementById('loading').style.display='none'"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-pointer-lock"
     ></iframe>
   </div>
 </body>

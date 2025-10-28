@@ -9,6 +9,9 @@
     // Load books list view
     async loadBooksList() {
       try {
+        // Cleanup any blob URLs from previous book
+        this._cleanupBlobUrl()
+
         console.log('📚 Loading books list...')
         const response = await fetch(`${CDN_BASE}/books-list.html`)
 
@@ -28,24 +31,70 @@
     // Load book view
     async loadBook(bookId, bookTitle, bookUrl) {
       try {
-        console.log(`📖 Loading book: ${bookTitle}`)
-        const response = await fetch(`${CDN_BASE}/book-view.html`)
+        // Cleanup any blob URLs from previous book
+        this._cleanupBlobUrl()
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+        console.log(`📖 Loading book: ${bookTitle}`)
+
+        // Fetch book view template
+        const templateResponse = await fetch(`${CDN_BASE}/book-view.html`)
+        if (!templateResponse.ok) {
+          throw new Error(`Template HTTP ${templateResponse.status}: ${templateResponse.statusText}`)
         }
 
-        let html = await response.text()
+        let html = await templateResponse.text()
 
         // Replace placeholders
         html = html.replace(/\{\{BOOK_TITLE\}\}/g, bookTitle)
-        html = html.replace(/\{\{BOOK_URL\}\}/g, bookUrl)
 
+        // Set the view first
         document.body.innerHTML = html
-        console.log('✅ Book loaded!')
+
+        // Now fetch the book content and create blob URL
+        console.log('📥 Fetching book content...')
+        const bookResponse = await fetch(bookUrl)
+        if (!bookResponse.ok) {
+          throw new Error(`Book HTTP ${bookResponse.status}: ${bookResponse.statusText}`)
+        }
+
+        const bookHtml = await bookResponse.text()
+
+        // Create blob with proper content-type
+        const blob = new Blob([bookHtml], { type: 'text/html' })
+        const blobUrl = URL.createObjectURL(blob)
+
+        // Set iframe src to blob URL
+        const iframe = document.getElementById('bookFrame')
+        if (iframe) {
+          iframe.onload = () => {
+            const loading = document.getElementById('loading')
+            if (loading) loading.style.display = 'none'
+            console.log('✅ Book loaded!')
+          }
+          iframe.onerror = () => {
+            console.error('❌ Failed to load book in iframe')
+            const loading = document.getElementById('loading')
+            if (loading) {
+              loading.innerHTML = '<div style="color: #ff6b6b;">Failed to load book</div>'
+            }
+          }
+          iframe.src = blobUrl
+        }
+
+        // Store blob URL for cleanup (optional)
+        this._currentBlobUrl = blobUrl
+
       } catch (error) {
         console.error('❌ Error loading book:', error.message)
         this.showError('Failed to load book', error.message)
+      }
+    },
+
+    // Cleanup blob URL when switching views
+    _cleanupBlobUrl() {
+      if (this._currentBlobUrl) {
+        URL.revokeObjectURL(this._currentBlobUrl)
+        this._currentBlobUrl = null
       }
     },
 
