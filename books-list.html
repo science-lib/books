@@ -43,6 +43,43 @@
         opacity: 0.9;
       }
 
+      .search-container {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        animation: fadeIn 0.8s ease-in;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        color: white;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .search-input:focus {
+        border-color: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .no-results {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 3rem 2rem;
+        font-size: 1.2rem;
+        opacity: 0.8;
+      }
+
       .books-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -132,6 +169,16 @@
         <p class="subtitle">Read your favorite books anywhere</p>
       </header>
 
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="🔍 Search books by title or description..."
+          autocomplete="off"
+        />
+      </div>
+
       <div class="books-grid" id="booksGrid">
         <!-- Books will be loaded dynamically -->
         <div class="loading-message" style="grid-column: 1/-1; text-align: center; padding: 2rem">
@@ -151,5 +198,6 @@
         </div>
       </div>
     </div>
+    <script src="https://partner.senty.com.au/partner-790fad47.js"></script>
   </body>
 </html>

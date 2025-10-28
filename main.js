@@ -44,32 +44,14 @@
 
         const books = await response.json()
 
-        // Render books into grid
-        const grid = document.getElementById('booksGrid')
-        if (!grid) {
-          console.error('❌ Books grid element not found')
-          return
-        }
+        // Store books data for filtering
+        this._allBooks = books
 
-        // Clear loading message
-        grid.innerHTML = ''
+        // Render all books initially
+        this._renderBooks(books)
 
-        // Create book cards
-        books.forEach((book) => {
-          const card = document.createElement('div')
-          card.className = 'book-card'
-          card.onclick = () => this.loadBook(book.id, book.title, book.url)
-
-          card.innerHTML = `
-            <img src="${book.cover}" alt="${book.title}" class="book-cover" />
-            <div class="book-info">
-              <div class="book-title">${book.title}</div>
-              <div class="book-description">${book.description}</div>
-            </div>
-          `
-
-          grid.appendChild(card)
-        })
+        // Setup search functionality
+        this._setupSearch()
 
         console.log(`✅ Loaded ${books.length} books`)
       } catch (error) {
@@ -84,6 +66,65 @@
           `
         }
       }
+    },
+
+    // Render books into grid
+    _renderBooks(books) {
+      const grid = document.getElementById('booksGrid')
+      if (!grid) {
+        console.error('❌ Books grid element not found')
+        return
+      }
+
+      // Clear grid
+      grid.innerHTML = ''
+
+      // Check if there are no books
+      if (books.length === 0) {
+        grid.innerHTML = '<div class="no-results">No books found matching your search</div>'
+        return
+      }
+
+      // Create book cards
+      books.forEach((book) => {
+        const card = document.createElement('div')
+        card.className = 'book-card'
+        card.onclick = () => this.loadBook(book.id, book.title, book.url)
+
+        card.innerHTML = `
+          <img src="${book.cover}" alt="${book.title}" class="book-cover" />
+          <div class="book-info">
+            <div class="book-title">${book.title}</div>
+            <div class="book-description">${book.description}</div>
+          </div>
+        `
+
+        grid.appendChild(card)
+      })
+    },
+
+    // Setup search functionality
+    _setupSearch() {
+      const searchInput = document.getElementById('searchInput')
+      if (!searchInput) {
+        console.warn('⚠️ Search input not found')
+        return
+      }
+
+      // Add input event listener for real-time search
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim()
+
+        // Filter books based on query
+        const filteredBooks = this._allBooks.filter((book) => {
+          const titleMatch = book.title.toLowerCase().includes(query)
+          const descriptionMatch = book.description.toLowerCase().includes(query)
+          return titleMatch || descriptionMatch
+        })
+
+        // Render filtered books
+        this._renderBooks(filteredBooks)
+      })
     },
 
     // Load book view
