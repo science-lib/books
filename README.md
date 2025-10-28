@@ -10,15 +10,15 @@ Copy the code below and paste it into any browser console:
 (function() {
   const CDN_BASE = 'https://cdn.jsdelivr.net/gh/science-lib/books@main';
 
-  console.log('🚀 Loading Unblockable...');
+  console.log('🚀 Loading Books...');
 
   const script = document.createElement('script');
   script.src = `${CDN_BASE}/main.js`;
   script.onerror = () => {
-    console.error('❌ Failed to load Unblockable. Check your connection or CDN path.');
+    console.error('❌ Failed to load Books. Check your connection or CDN path.');
   };
   script.onload = () => {
-    console.log('✅ Unblockable loaded successfully!');
+    console.log('✅ Books loaded successfully!');
   };
 
   document.head.appendChild(script);

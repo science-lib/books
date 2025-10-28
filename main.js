@@ -1,4 +1,4 @@
-// Unblockable Main Script
+// Main Script
 ;(async function () {
   const CDN_BASE = 'https://cdn.jsdelivr.net/gh/science-lib/books@main'
 
@@ -144,7 +144,6 @@
 
         // Store blob URL for cleanup (optional)
         this._currentBlobUrl = blobUrl
-
       } catch (error) {
         console.error('❌ Error loading book:', error.message)
         this.showError('Failed to load book', error.message)
@@ -194,7 +193,7 @@
           </div>
         </div>
       `
-    }
+    },
   }
 
   // Initial load - show books list
@@ -229,7 +228,7 @@
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Error - Unblockable</title>
+        <title>Error</title>
         <style>
           body {
             margin: 0;
