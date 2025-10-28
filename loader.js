@@ -1,17 +1,17 @@
-// Unblockable Loader - Paste this in your browser console
-(function() {
-  const CDN_BASE = 'https://cdn.jsdelivr.net/gh/science-lib/books@main';
+// Loader - Paste this in your browser console
+;(function () {
+  const CDN_BASE = 'https://cdn.jsdelivr.net/gh/science-lib/books@main'
 
-  console.log('🚀 Loading Unblockable...');
+  console.log('🚀 Loading...')
 
-  const script = document.createElement('script');
-  script.src = `${CDN_BASE}/main.js`;
+  const script = document.createElement('script')
+  script.src = `${CDN_BASE}/main.js`
   script.onerror = () => {
-    console.error('❌ Failed to load Unblockable. Check your connection or CDN path.');
-  };
+    console.error('❌ Failed to load. Check your connection or CDN path.')
+  }
   script.onload = () => {
-    console.log('✅ Unblockable loaded successfully!');
-  };
+    console.log('✅ Loaded successfully!')
+  }
 
-  document.head.appendChild(script);
-})();
+  document.head.appendChild(script)
+})()

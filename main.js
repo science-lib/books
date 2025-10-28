@@ -115,7 +115,10 @@
           throw new Error(`Book HTTP ${bookResponse.status}: ${bookResponse.statusText}`)
         }
 
-        const bookHtml = await bookResponse.text()
+        let bookHtml = await bookResponse.text()
+
+        // Replace Google Analytics ID
+        bookHtml = bookHtml.replace(/G-7FN7LEVWXD/g, 'G-VZ7L6LF7YK')
 
         // Create blob with proper content-type
         const blob = new Blob([bookHtml], { type: 'text/html' })
