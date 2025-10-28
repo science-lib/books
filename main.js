@@ -21,10 +21,68 @@
 
         const html = await response.text()
         document.body.innerHTML = html
+
+        // Now load books data and populate grid
+        await this._loadBooksData()
+
         console.log('✅ Books list loaded!')
       } catch (error) {
         console.error('❌ Error loading books list:', error.message)
         this.showError('Failed to load books list', error.message)
+      }
+    },
+
+    // Load books data from JSON and render
+    async _loadBooksData() {
+      try {
+        console.log('📥 Fetching books data...')
+        const response = await fetch(`${CDN_BASE}/books.json`)
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+        }
+
+        const books = await response.json()
+
+        // Render books into grid
+        const grid = document.getElementById('booksGrid')
+        if (!grid) {
+          console.error('❌ Books grid element not found')
+          return
+        }
+
+        // Clear loading message
+        grid.innerHTML = ''
+
+        // Create book cards
+        books.forEach((book) => {
+          const card = document.createElement('div')
+          card.className = 'book-card'
+          card.onclick = () => this.loadBook(book.id, book.title, book.url)
+
+          card.innerHTML = `
+            <img src="${book.cover}" alt="${book.title}" class="book-cover" />
+            <div class="book-info">
+              <div class="book-title">${book.title}</div>
+              <div class="book-description">${book.description}</div>
+            </div>
+          `
+
+          grid.appendChild(card)
+        })
+
+        console.log(`✅ Loaded ${books.length} books`)
+      } catch (error) {
+        console.error('❌ Error loading books data:', error.message)
+        const grid = document.getElementById('booksGrid')
+        if (grid) {
+          grid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #ff6b6b;">
+              <p>Failed to load books</p>
+              <p style="font-size: 0.875rem; margin-top: 0.5rem;">${error.message}</p>
+            </div>
+          `
+        }
       }
     },
 
