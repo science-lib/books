@@ -43,7 +43,6 @@ Or use the pre-made loader:
 
 - `loader.js` - Console snippet for easy loading
 - `main.js` - Main application logic
-- `content.html` - HTML content to display
 
 ## CDN
 

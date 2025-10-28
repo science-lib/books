@@ -215,6 +215,9 @@
     document.close()
 
     console.log('✨ Unblockable ready!')
+
+    // Now load the books data
+    await window.unblockable._loadBooksData()
   } catch (error) {
     console.error('❌ Error loading Unblockable:', error.message)
 
