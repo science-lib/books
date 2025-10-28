@@ -3291,59 +3291,10 @@
   },
   {
     "id": "unknown",
-    "title": "Big Mac Hero",
-    "description": "Adventure Game",
-    "cover": "/images/bigmachero.jpg",
-    "url": "/g/bigmachero/index.html"
-  },
-  {
-    "id": "unknown",
-    "title": "Cluster Rush",
-    "description": "Action Game",
-    "cover": "/images/clusterrush.jpg",
-    "url": "/g/clusterrush/index.html"
-  },
-  {
-    "id": "unknown",
     "title": "Crazy Cattle 3D",
     "description": "Arcade Game",
     "cover": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/164.png",
     "url": "https://cdn.jsdelivr.net/gh/gn-math/html@main/164-temp2.html"
-  },
-  {
-    "id": "unknown",
-    "title": "Deepest Sword",
-    "description": "Puzzle Game",
-    "cover": "/g/deepest-sword/logo.png",
-    "url": "/g/deepest-sword/index.html"
-  },
-  {
-    "id": "unknown",
-    "title": "Flipping is Hard",
-    "description": "Adventure Game",
-    "cover": "/g/flippingishard/icon.gif",
-    "url": "/g/flippingishard/index.html"
-  },
-  {
-    "id": "unknown",
-    "title": "Game Name",
-    "description": "Simulation Game",
-    "cover": "/g/game-name/icon.png",
-    "url": "/g/clusterrush/index.html"
-  },
-  {
-    "id": "unknown",
-    "title": "Hollow Knight",
-    "description": "Metroidvania Game",
-    "cover": "/g/hollow-knight/icon.png",
-    "url": "/g/hollow-knight/index.html"
-  },
-  {
-    "id": "unknown",
-    "title": "Roblox",
-    "description": "Online Multiplayer Game",
-    "cover": "/images/roblox.webp",
-    "url": "/g/roblox.html"
   },
   {
     "id": "unknown",
