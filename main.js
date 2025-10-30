@@ -127,6 +127,29 @@
       })
     },
 
+    // Toggle fullscreen mode
+    toggleFullscreen() {
+      const container = document.querySelector('.book-container')
+      if (!container) {
+        console.error('❌ Book container not found')
+        return
+      }
+
+      if (!document.fullscreenElement) {
+        // Enter fullscreen
+        container.requestFullscreen().catch((err) => {
+          console.error('❌ Error entering fullscreen:', err)
+        })
+        console.log('📺 Entered fullscreen mode (Press ESC to exit)')
+      } else {
+        // Exit fullscreen
+        document.exitFullscreen().catch((err) => {
+          console.error('❌ Error exiting fullscreen:', err)
+        })
+        console.log('📺 Exited fullscreen mode')
+      }
+    },
+
     // Load book view
     async loadBook(bookId, bookTitle, bookUrl) {
       try {
